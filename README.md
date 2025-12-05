@@ -28,9 +28,28 @@ A stupidly small, ridiculously fast virtual machine that runs `.tvm` bytecode wi
 | 0x43   | RET        | Return / exit                   |
 | 0xF0   | PRINT      | Print r0 as signed decimal      |
 | 0xF1   | PRINTC     | Print r0 as char (animated)     |
-
 ## Build & Run
 ```bash
 g++ -std=c++17 -O3 -s tinyvm.cpp -o tinyvm
 ./tinyvm                  # interactive picker or auto hello.tvm
 ./tinyvm fib.tvm          # run any .tvm file directly
+```
+
+Included demos (drop them next to the exe)
+
+hello.tvm → classic
+fib.tvm   → prints Fibonacci forever
+game.tvm  → tiny guess-the-number game
+demo.tvm  → opcode showcase
+
+Creating your own .tvm
+Just write raw bytes. Example “Hello World\n” (already in the code):
+```
+std::ofstream("hello.tvm", std::ios::binary) << 
+"\x11\x00H\x00\x00\x00\xF1"
+"\x11\x00e\x00\x00\x00\xF1F" // etc + final HALT \x00
+```
+
+That’s it. No assembler, no linker, no excuses.
+Now go make something pointless and beautiful.
+— 2025, built with love and sleep deprivation
